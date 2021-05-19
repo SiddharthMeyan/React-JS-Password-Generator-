@@ -1,15 +1,27 @@
 import React from "react";
+import Showpass from "./Showpass";
 
-const Form = (props) => {
+const Form = ({
+  passLen,
+  numBool,
+  symbol,
+  setPassLen,
+  setnumBool,
+  setSymbol,
+  genPassword,
+  myPassword,
+  textAreaRef,
+  copyToClipboard,
+}) => {
   return (
-    <div className="container contact-form">
+    <div className="container contact-form border-gradient border-gradient-purple">
       <div className="contact-image">
         <img
           src="https://pngimg.com/uploads/key/key_PNG1176.png"
           alt="password-key"
         />
       </div>
-      <form onSubmit={props.genPassword}>
+      <form onSubmit={genPassword}>
         <h3>Generate a random Password</h3>
         <div className="row">
           <div className="col-md-6">
@@ -23,11 +35,11 @@ const Form = (props) => {
                 min="6"
                 max="30"
                 id="passLength"
-                value={props.passLen}
-                onChange={(e) => props.setPassLen(e.target.value)}
+                value={passLen}
+                onChange={(e) => setPassLen(e.target.value)}
               />
               <center>
-                <div id="showLen">{props.passLen ? props.passLen : 18}</div>
+                <div id="showLen">{passLen ? passLen : 18}</div>
               </center>
             </div>
             <div className="form-group">
@@ -37,11 +49,9 @@ const Form = (props) => {
                   type="checkbox"
                   value=""
                   id="numbers"
-                  value={props.numBool}
+                  value={numBool}
                   onChange={(e) =>
-                    e.target.checked
-                      ? props.setnumBool(true)
-                      : props.setnumBool(false)
+                    e.target.checked ? setnumBool(true) : setnumBool(false)
                   }
                 />
                 <label className="form-check-label" htmlFor="numbers">
@@ -54,11 +64,9 @@ const Form = (props) => {
                   type="checkbox"
                   value=""
                   id="symbols"
-                  value={props.symbol}
+                  value={symbol}
                   onChange={(e) =>
-                    e.target.checked
-                      ? props.setSymbol(true)
-                      : props.setSymbol(false)
+                    e.target.checked ? setSymbol(true) : setSymbol(false)
                   }
                 />
                 <label className="form-check-label" htmlFor="symbols">
@@ -75,22 +83,11 @@ const Form = (props) => {
                 value="Generate"
               />
             </div>
-            <div className="form-group">
-              <textarea
-                name="txtMsg"
-                className="form-control"
-                ref={props.textAreaRef}
-                placeholder=""
-                defaultValue={`${props.myPassword}`}
-                style={{ width: "100%", height: "150px" }}
-              ></textarea>
-              <button
-                className="btn btn-primary"
-                onClick={props.copyToClipboard}
-              >
-                copy
-              </button>
-            </div>
+            <Showpass
+              myPassword={myPassword}
+              copyToClipboard={copyToClipboard}
+              textAreaRef={textAreaRef}
+            />
           </div>
         </div>
       </form>
